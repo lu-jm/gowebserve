@@ -12,20 +12,6 @@ import (
 
 var GormDB *gorm.DB
 
-func InitGorm() error {
-	dsn := "root:123456@tcp(localhost:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
-
-	var err error
-	GormDB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
-		Logger: logger.Default.LogMode(logger.Info)})
-
-	if err != nil {
-		return fmt.Errorf("gorm conntect fail%v", err)
-	}
-	log.Println("gorm connect success")
-	return nil
-}
-
 func InitGormWithConfig() error {
 	config, err := config.LoadConfig()
 	if err != nil {

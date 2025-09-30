@@ -18,7 +18,7 @@ func main() {
 
 	r := gin.Default()
 
-	r.POST("/user", handlers.GreateUser)
+	r.POST("/user", handlers.CreateUser)
 	r.GET("/user/:id", handlers.GetUserById)
 
 	log.Println("server on 8080")

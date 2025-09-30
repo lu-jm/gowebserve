@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 	"test/database"
@@ -9,7 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GreateUser(c *gin.Context) {
+func CreateUser(c *gin.Context) {
 	var user models.User
 	if err := c.ShouldBindJSON(&user); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -18,7 +19,8 @@ func GreateUser(c *gin.Context) {
 		return
 	}
 	db := database.GetDB()
-	if err := db.Create(&user); err != nil {
+	if err := db.Create(&user).Error; err != nil {
+		fmt.Printf("user not found, err: %v\n", err)
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "create user error",
 		})
